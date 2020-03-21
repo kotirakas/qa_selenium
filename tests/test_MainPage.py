@@ -1,15 +1,15 @@
-
-
+from locators import MainPage
 from selenium import webdriver
-
+from selenium.webdriver.common.by import By
 def test_mainpage():
-    br = webdriver.Chrome()
-    br.get("https://demo.opencart.com")
-    br.find_element_by_tag_name("h3") #Featured
-    br.find_element_by_id("slideshow0") #первая карусель
-    br.find_element_by_id("carousel0") #карусель логотипов
-    br.find_element_by_class_name("swiper-pagination.carousel0") #страницы карусели логотипов
-    br.find_element_by_css_selector(".navbar-nav") #меню
-    br.quit()
+    browser = webdriver.Chrome()
+    browser.get("https://demo.opencart.com")
+    fea = browser.find_element_by_tag_name(MainPage.FEATURED)
+    assert fea.text == "Featured"
+    browser.find_element_by_id(MainPage.FIRST_CARUSEL) #первая карусель
+    browser.find_element_by_id(MainPage.LOGO_CARUSEl) #карусель логотипов
+    browser.find_element_by_class_name(MainPage.PAGE_CARUSEL) #страницы карусели логотипов
+    browser.find_element(By.ID, MainPage.CONTENT)
+    browser.quit()
 
 
