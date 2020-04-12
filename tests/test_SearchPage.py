@@ -1,8 +1,12 @@
 from selenium import webdriver
 from locators import SearchPage
 
-def test_search_page():
+def test_search_page(browser):
     br = webdriver.Chrome()
+    if browser == "Chrome":
+        br = webdriver.Chrome()
+    elif browser == "Firefox":
+        br = webdriver.Firefox()
     br.get("https://demo.opencart.com/index.php?route=product/search&search=htc")
     search_name = br.find_element_by_css_selector(SearchPage.CONTENT_NAME)
     assert search_name.text == "Search - htc"
