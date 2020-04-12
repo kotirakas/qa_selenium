@@ -1,8 +1,11 @@
 from locators import LoginPage
 from selenium import webdriver
 
-def test_adminlogin_page():
-    br = webdriver.Chrome()
+def test_adminlogin_page(browser):
+    if browser == "Chrome":
+        br = webdriver.Chrome()
+    elif browser == "Firefox":
+        br = webdriver.Firefox()
     br.get("https://demo.opencart.com/admin/")
     br.find_element_by_css_selector(LoginPage.LOGIN_BUTTON) #кнопка логин
     br.find_element_by_css_selector(LoginPage.USERNAME) #поле ввода логина
