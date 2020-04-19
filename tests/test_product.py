@@ -15,6 +15,3 @@ def test_add_product_page(browser):
         page_test = webdriver.Firefox()
 
     page_test.get("https://192.168.0.106/opencart/admin")
-
-
-
