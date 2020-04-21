@@ -2,6 +2,7 @@ from selenium.webdriver.common.alert import Alert
 from locators import ProductPage
 import time
 
+
 def test_add(browser):
     before = len(browser.find_elements_by_xpath(ProductPage.LIST))
     browser.find_element_by_xpath(ProductPage.ADD).click()
