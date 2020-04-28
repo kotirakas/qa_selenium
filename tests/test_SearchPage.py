@@ -1,17 +1,11 @@
-from selenium import webdriver
-from locators import SearchPage
+from page_objects import SearchPage
 
-def test_search_page(browser):
-    br = webdriver.Chrome()
-    if browser == "Chrome":
-        br = webdriver.Chrome()
-    elif browser == "Firefox":
-        br = webdriver.Firefox()
-    br.get("https://demo.opencart.com/index.php?route=product/search&search=htc")
-    search_name = br.find_element_by_css_selector(SearchPage.CONTENT_NAME)
-    assert search_name.text == "Search - htc"
-    br.find_element_by_id(SearchPage.INPUT_SEARCH) # поле ввода запроса
-    br.find_element_by_css_selector(SearchPage.CATEGORY) #кнопка выбора категорий
-    br.find_element_by_css_selector(SearchPage.LIMIT) #кол-во показываемых единиц
-    br.find_element_by_id(SearchPage.COMPARE) #Product Compare
-    br.quit()
+
+def test_search_page(browser, tim):
+    SearchPage(browser,tim).go_site()
+    assert SearchPage(browser, tim).search_name() == "Search - htc"
+    SearchPage(browser, tim).input_search()
+    SearchPage(browser, tim).category()
+    SearchPage(browser, tim).limit()
+    SearchPage(browser, tim).compare()
+    SearchPage(browser, tim).close()

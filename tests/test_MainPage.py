@@ -1,19 +1,12 @@
-from locators import MainPage
-from selenium import webdriver
-from selenium.webdriver.common.by import By
+from page_objects import MainPage
 
-def test_mainpage(browser):
-    if browser == "Chrome":
-        br = webdriver.Chrome()
-    elif browser == "Firefox":
-        br = webdriver.Firefox()
-    br.get("https://demo.opencart.com")
-    fea = br.find_element_by_tag_name(MainPage.FEATURED)
-    assert fea.text == "Featured"
-    br.find_element_by_id(MainPage.FIRST_CARUSEL) #первая карусель
-    br.find_element_by_id(MainPage.LOGO_CARUSEl) #карусель логотипов
-    br.find_element_by_class_name(MainPage.PAGE_CARUSEL) #страницы карусели логотипов
-    br.find_element(By.ID, MainPage.CONTENT)
-    br.quit()
 
+def test_mainpage(browser, tim):
+    MainPage(browser, tim).go_site()
+    assert MainPage(browser, tim).featured() == "Featured"
+    MainPage(browser, tim).first_carusel()
+    MainPage(browser, tim).logo_carusel()
+    MainPage(browser, tim).page_carusel()
+    MainPage(browser, tim).content()
+    MainPage(browser, tim).close()
 

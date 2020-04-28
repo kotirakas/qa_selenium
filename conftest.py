@@ -1,4 +1,5 @@
 import pytest
+from selenium import webdriver
 
 
 def pytest_addoption(parser):
@@ -14,5 +15,11 @@ def tim(request):
 
 @pytest.fixture
 def browser(request):
-    return request.config.getoption("--browser")
+    browser_param = request.config.getoption("--browser")
+    if browser_param == "chrome":
+        driver = webdriver.Chrome()
+    elif browser_param == "firefox":
+        driver = webdriver.Firefox()
+
+    return driver
 

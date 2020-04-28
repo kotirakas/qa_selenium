@@ -1,15 +1,11 @@
-from locators import LoginPage
-from selenium import webdriver
+from page_objects import LoginPage
 
-def test_adminlogin_page(browser):
-    if browser == "Chrome":
-        br = webdriver.Chrome()
-    elif browser == "Firefox":
-        br = webdriver.Firefox()
-    br.get("https://demo.opencart.com/admin/")
-    br.find_element_by_css_selector(LoginPage.LOGIN_BUTTON) #кнопка логин
-    br.find_element_by_css_selector(LoginPage.USERNAME) #поле ввода логина
-    br.find_element_by_css_selector(LoginPage.PASSWORD) # поле ввода пвроля
-    br.find_element_by_link_text(LoginPage.FORGOT_PASSWORD) #ссылка "забыл пароль#
-    br.find_element_by_tag_name(LoginPage.PAGE_TEXT) #поле Please enter your login details.
-    br.quit()
+
+def test_adminlogin_page(browser,tim):
+    LoginPage(browser, tim).go_site()
+    LoginPage(browser, tim).login_button()
+    LoginPage(browser, tim).username()
+    LoginPage(browser, tim).password()
+    LoginPage(browser, tim).forgot_password()
+    LoginPage(browser, tim).page_text()
+    LoginPage(browser, tim).close()
