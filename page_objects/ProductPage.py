@@ -1,3 +1,7 @@
+import os
+import time
+from selenium.webdriver.common.alert import Alert
+
 class ProductPage:
 
     def __init__(self, driver):
@@ -21,6 +25,15 @@ class ProductPage:
     NEW_NAME = "111"
     CHECKBOX = "//*[@id='form-product']/div/table/tbody/tr[20]/td[1]"
     DELETE = "//*[@id='content']/div[1]/div/div/button[3]"
+    IMAGE_PAGE = "//*[@id='form-product']/ul/li[9]/a"
+    LOGO_ICON = "a#thumb-image"
+    LOGO_EDIT_BUTTON ="button#button-image"
+    BUTTON_UPLOAD = "#button-upload"
+    LOGO_UPLOAD_BUTTON = "input[type='file']"
+    ADD_LOGO = "//*[@id='filemanager']/div/div[2]/div[2]/div[3]//img"
+
+
+
 
     def login(self):
         self.driver.find_element_by_id("input-username").send_keys("admin")
@@ -64,3 +77,22 @@ class ProductPage:
 
     def delete(self):
         self.driver.find_element_by_xpath(self.DELETE).click()
+
+    def image_page(self):
+        self.driver.find_element_by_xpath(self.IMAGE_PAGE).click()
+
+    def logo_edit(self):
+        self.driver.find_element_by_css_selector(self.LOGO_ICON).click()
+        self.driver.find_element_by_css_selector(self.LOGO_EDIT_BUTTON).click()
+
+    def logo_download(self):
+        dirname = os.path.dirname(os.path.abspath(__file__))
+        filename = os.path.join(dirname, 'fotos.png')
+        self.driver.execute_script("$('#button-upload').click()")
+        time.sleep(3)
+        self.driver.find_element_by_css_selector(self.LOGO_UPLOAD_BUTTON).send_keys(filename)
+        time.sleep(3)
+        Alert(self.driver).accept()
+
+    def add_logo(self):
+        self.driver.find_element_by_xpath(self.ADD_LOGO).click()
