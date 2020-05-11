@@ -1,3 +1,7 @@
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class SearchPage:
 
@@ -7,8 +11,8 @@ class SearchPage:
         self.base_url = "https://demo.opencart.com/index.php?route=product/search&search=htc"
 
     def go_site(self):
+        logger.info('====== Started SearchPage ======')
         return self.driver.get(self.base_url)
-
 
     CONTENT_NAME = "#content h1"
     INPUT_SEARCH = "input-search"
@@ -33,4 +37,5 @@ class SearchPage:
         self.driver.find_element_by_id(self.COMPARE)  # Product Compare
 
     def close(self):
+        logger.info('====== Closed SearchPage ======')
         self.driver.quit()

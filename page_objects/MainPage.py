@@ -1,4 +1,7 @@
 from selenium.webdriver.common.by import By
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class MainPage:
@@ -8,6 +11,7 @@ class MainPage:
         self.base_url = "https://demo.opencart.com"
 
     def go_site(self):
+        logger.info('====== Started MainPage ======')
         return self.driver.get(self.base_url)
 
     FEATURED = "h3"
@@ -15,7 +19,6 @@ class MainPage:
     LOGO_CARUSEl = "carousel0"
     PAGE_CARUSEL = "swiper-pagination.carousel0"
     CONTENT = "content"
-
 
     def featured(self):
         fea = self.driver.find_element_by_tag_name(self.FEATURED).text
@@ -34,4 +37,5 @@ class MainPage:
         self.driver.find_element(By.ID, self.CONTENT)
 
     def close(self):
+        logger.info('====== Closed MainPage ======')
         self.driver.quit()

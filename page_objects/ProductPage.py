@@ -1,6 +1,9 @@
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class ProductPage:
@@ -11,6 +14,7 @@ class ProductPage:
         self.base_url = "https://demo.opencart.com/index.php?route=product/product&path=57&product_id=49"
 
     def go_site(self):
+        logger.info('====== Started ProductPage ======')
         return self.driver.get(self.base_url)
 
     DESCRIPTION = "Description"
@@ -36,4 +40,5 @@ class ProductPage:
 
     #
     def close(self):
+        logger.info('====== Closed ProductPage ======')
         self.driver.quit()

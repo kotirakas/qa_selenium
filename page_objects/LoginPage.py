@@ -1,3 +1,8 @@
+import logging
+
+logger = logging.getLogger(__name__)
+
+
 class LoginPage:
     def __init__(self, driver, tim):
         self.tim = tim
@@ -5,6 +10,7 @@ class LoginPage:
         self.base_url = 'https://demo.opencart.com/admin/'
 
     def go_site(self):
+        logger.info('====== Started LoginPage ======')
         return self.driver.get(self.base_url)
 
     LOGIN_BUTTON = "button[type=submit]"
@@ -12,8 +18,6 @@ class LoginPage:
     PASSWORD = "input#input-password"
     FORGOT_PASSWORD = "Forgotten Password"
     PAGE_TEXT = "h1"
-    #browser = webdriver.Chrome()
-    #browser.get("https://demo.opencart.com/admin/")
 
     def login_button(self):
         self.driver.find_element_by_css_selector(self.LOGIN_BUTTON)  # кнопка логин
@@ -31,4 +35,5 @@ class LoginPage:
         self.driver.find_element_by_tag_name(self.PAGE_TEXT)
 
     def close(self):
+        logger.info('====== Closed LoginPage ======')
         self.driver.close()
