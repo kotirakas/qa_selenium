@@ -3,48 +3,48 @@ from page_objects import ProductPage
 import time
 
 
-def test_add(browser):
-    ProductPage(browser).go_site()
-    ProductPage(browser).login()
-    before = ProductPage(browser).list()
-    ProductPage(browser).add()
-    ProductPage(browser).add_product_name()
-    ProductPage(browser).add_meta_name()
-    ProductPage(browser).data_page()
-    ProductPage(browser).add_model()
-    ProductPage(browser).image_page()
-    ProductPage(browser).logo_edit()
+def test_add(remote):
+    ProductPage(remote).go_site()
+    ProductPage(remote).login()
+    before = ProductPage(remote).list()
+    ProductPage(remote).add()
+    ProductPage(remote).add_product_name()
+    ProductPage(remote).add_meta_name()
+    ProductPage(remote).data_page()
+    ProductPage(remote).add_model()
+    ProductPage(remote).image_page()
+    ProductPage(remote).logo_edit()
     time.sleep(5)
-    ProductPage(browser).logo_download()
+    ProductPage(remote).logo_download()
     time.sleep(5)
-    ProductPage(browser).add_logo()
-    ProductPage(browser).add_device()
+    ProductPage(remote).add_logo()
+    ProductPage(remote).add_device()
     time.sleep(3)
-    after = ProductPage(browser).list()
+    after = ProductPage(remote).list()
     assert after == before + 1
-    browser.close()
+    remote.close()
 
 
-def test_change(browser):
-    ProductPage(browser).go_site()
-    ProductPage(browser).login()
-    before = ProductPage(browser).element()
-    ProductPage(browser).edit_product()
-    ProductPage(browser).add_new_name()
-    ProductPage(browser).add_device()
-    after = ProductPage(browser).element()
+def test_change(remote):
+    ProductPage(remote).go_site()
+    ProductPage(remote).login()
+    before = ProductPage(remote).element()
+    ProductPage(remote).edit_product()
+    ProductPage(remote).add_new_name()
+    ProductPage(remote).add_device()
+    after = ProductPage(remote).element()
     assert before != after
-    browser.close()
+    remote.close()
 
 
-def test_delete(browser):
-    ProductPage(browser).go_site()
-    ProductPage(browser).login()
-    before = ProductPage(browser).list()
-    ProductPage(browser).checkbox()
-    ProductPage(browser).delete()
-    Alert(browser).accept()
+def test_delete(remote):
+    ProductPage(remote).go_site()
+    ProductPage(remote).login()
+    before = ProductPage(remote).list()
+    ProductPage(remote).checkbox()
+    ProductPage(remote).delete()
+    Alert(remote).accept()
     time.sleep(3)
-    after = ProductPage(browser).list()
+    after = ProductPage(remote).list()
     assert after == before - 1
-    browser.close()
+    remote.close()

@@ -1,7 +1,7 @@
 class iPhonePage:
     def __init__(self, driver):
         self.driver = driver
-        self.base_url = "http://192.168.0.104/opencart/index.php?route=product/product&path=24&product_id=40"
+        self.base_url = "http://192.168.0.105/opencart/index.php?route=product/product&path=24&product_id=40"
 
     def go_site(self):
         return self.driver.get(self.base_url)

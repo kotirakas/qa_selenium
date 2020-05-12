@@ -6,7 +6,7 @@ class ProductPage:
 
     def __init__(self, driver):
         self.driver = driver
-        self.base_url = "http://192.168.0.104/opencart/admin/index.php?route=catalog/product"
+        self.base_url = "http://192.168.0.105/opencart/admin/index.php?route=catalog/product"
 
     def go_site(self):
         return self.driver.get(self.base_url)
