@@ -1,10 +1,11 @@
 from page_objects import MainPage
 
 
-def test_mainpage():
-    assert MainPage().featured() == "Featured"
-    MainPage().first_carusel()
-    MainPage().logo_carusel()
-    MainPage().page_carusel()
-    MainPage().content()
-    MainPage().close()
+def test_mainpage(remote):
+    MainPage(remote).go_site()
+    assert MainPage(remote).featured() == "Featured"
+    MainPage(remote).first_carusel()
+    MainPage(remote).logo_carusel()
+    MainPage(remote).page_carusel()
+    MainPage(remote).content()
+    MainPage(remote).close()
