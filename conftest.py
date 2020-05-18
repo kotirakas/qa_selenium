@@ -3,9 +3,8 @@ from selenium import webdriver
 
 
 def pytest_addoption(parser):
-     parser.addoption("--browser", action="store", default="chrome",
-                     choices=["chrome", "firefox", "opera", "yandex"])
-     parser.addoption("--executor", action="store", default="192.168.0.106")
+     parser.addoption("--browser", action="store", default="chrome")
+     #parser.addoption("--selenoid", action="store", default="True")
 
 @pytest.fixture
 def browser(request):
@@ -17,11 +16,16 @@ def browser(request):
     return driver
 
 
-@pytest.fixture
-def remote(request):
-    browser = request.config.getoption("--browser")
-    executor = request.config.getoption("--executor")
-    driver = webdriver.Remote(command_executor=f"{executor}:4444/wd/hub", desired_capabilities={"browserName": browser})
-    driver.maximize_window()
-    request.addfinalizer(driver.quit)
-    return driver
+#@pytest.fixture
+#def remote(request):
+    #browser = request.config.getoption("--browser")
+    #selenoid = request.config.getoption("--selenoid")
+    #if selenoid:
+        #executor = "192.168.0.105"
+        #driver = webdriver.Remote(command_executor=f"{executor}:4444/wd/hub", desired_capabilities={"browserName": browser,
+         #"enableVNC": True, "enableVideo": True, "name": "tests selenoid"})
+    #else:
+     #   driver = webdriver.Chrome()
+    #driver.maximize_window()
+    #request.addfinalizer(driver.quit)
+    #return driver

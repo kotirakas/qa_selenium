@@ -1,50 +1,52 @@
 from selenium.webdriver.common.alert import Alert
 from page_objects import ProductPage
 import time
+import allure
 
-
-def test_add(remote):
-    ProductPage(remote).go_site()
-    ProductPage(remote).login()
-    before = ProductPage(remote).list()
-    ProductPage(remote).add()
-    ProductPage(remote).add_product_name()
-    ProductPage(remote).add_meta_name()
-    ProductPage(remote).data_page()
-    ProductPage(remote).add_model()
-    ProductPage(remote).image_page()
-    ProductPage(remote).logo_edit()
+def test_add(browser):
+    ProductPage(browser).go_site()
+    ProductPage(browser).login()
+    before = ProductPage(browser).list()
+    ProductPage(browser).add()
+    ProductPage(browser).add_product_name()
+    ProductPage(browser).add_meta_name()
+    ProductPage(browser).data_page()
+    ProductPage(browser).add_model()
+    ProductPage(browser).image_page()
+    ProductPage(browser).logo_edit()
     time.sleep(5)
-    ProductPage(remote).logo_download()
+    ProductPage(browser).logo_download()
     time.sleep(5)
-    ProductPage(remote).add_logo()
-    ProductPage(remote).add_device()
+    ProductPage(browser).add_logo()
+    ProductPage(browser).add_device()
     time.sleep(3)
-    after = ProductPage(remote).list()
-    assert after == before + 1
-    remote.close()
+    after = ProductPage(browser).list()
+    with allure.step("сравниваю количество продуктов на странице"):
+        assert after == before + 1
+    browser.close()
 
 
-def test_change(remote):
-    ProductPage(remote).go_site()
-    ProductPage(remote).login()
-    before = ProductPage(remote).element()
-    ProductPage(remote).edit_product()
-    ProductPage(remote).add_new_name()
-    ProductPage(remote).add_device()
-    after = ProductPage(remote).element()
-    assert before != after
-    remote.close()
+def test_change(browser):
+    ProductPage(browser).go_site()
+    ProductPage(browser).login()
+    before = ProductPage(browser).element()
+    ProductPage(browser).edit_product()
+    ProductPage(browser).add_new_name()
+    ProductPage(browser).add_device()
+    after = ProductPage(browser).element()
+    with allure.step("сравниваю название продукта до и после изменения"):
+        assert before != after
+    browser.close()
 
 
-def test_delete(remote):
-    ProductPage(remote).go_site()
-    ProductPage(remote).login()
-    before = ProductPage(remote).list()
-    ProductPage(remote).checkbox()
-    ProductPage(remote).delete()
-    Alert(remote).accept()
+def test_delete(browser):
+    ProductPage(browser).go_site()
+    ProductPage(browser).login()
+    before = ProductPage(browser).list()
+    ProductPage(browser).checkbox()
+    ProductPage(browser).delete()
+    Alert(browser).accept()
     time.sleep(3)
-    after = ProductPage(remote).list()
+    after = ProductPage(browser).list()
     assert after == before - 1
-    remote.close()
+    browser.close()
