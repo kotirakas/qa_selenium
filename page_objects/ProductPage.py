@@ -35,8 +35,6 @@ class ProductPage:
     ADD_LOGO = "//*[@id='filemanager']/div/div[2]/div[2]/div[3]//img"
 
 
-
-
     def login(self):
         with allure.step("Произвожу логин на страницу каталога"):
             self.driver.find_element_by_id("input-username").send_keys("admin")
@@ -115,3 +113,4 @@ class ProductPage:
     def add_logo(self):
         with allure.step("добавляю новы логотип к продукту"):
             self.driver.find_element_by_xpath(self.ADD_LOGO).click()
+

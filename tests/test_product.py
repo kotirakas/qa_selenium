@@ -2,6 +2,12 @@ from selenium.webdriver.common.alert import Alert
 from page_objects import ProductPage
 import time
 import allure
+import mysql.connector
+
+connection = mysql.connector.connect(user='ocuser', password='PASSWORD', host='192.168.0.104', port='3306')
+cursor = connection.cursor()
+cursor.execute("USE opencart")
+
 
 def test_add(browser):
     ProductPage(browser).go_site()
@@ -24,6 +30,13 @@ def test_add(browser):
     with allure.step("сравниваю количество продуктов на странице"):
         assert after == before + 1
     browser.close()
+    cursor.execute("SELECT * FROM oc_product_description where name='test_device2'")
+    result = cursor.fetchall()
+    for row in result:
+        if row[2] == 'test_device2':
+            print("Устройство добавлено в БД")
+        else:
+            print("Устройства в БД нет")
 
 
 def test_change(browser):
@@ -37,6 +50,12 @@ def test_change(browser):
     with allure.step("сравниваю название продукта до и после изменения"):
         assert before != after
     browser.close()
+    cursor.execute("SELECT * FROM oc_product_description where name='test_device2'")
+    for row in cursor.fetchall():
+        if row[2] != 'HTC Touch HD':
+            print("Название устройства изменено")
+        else:
+            print("Название устройства не изменено")
 
 
 def test_delete(browser):
@@ -50,3 +69,12 @@ def test_delete(browser):
     after = ProductPage(browser).list()
     assert after == before - 1
     browser.close()
+    cursor.execute("SELECT * FROM oc_product_description where name='test_device2'")
+    result = cursor.fetchall()
+    if result == []:
+        print("Устройство удалено в БД")
+    else:
+        print("Устройств не удалено из БД ")
+
+    cursor.close()
+    connection.close()
