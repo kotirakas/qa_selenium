@@ -10,7 +10,12 @@ def pytest_addoption(parser):
 def browser(request):
     browser_param = request.config.getoption("--browser")
     if browser_param == "chrome":
-        driver = webdriver.Chrome()
+        options = webdriver.ChromeOptions()
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+        driver = webdriver.Chrome(options=options)
+        #driver = webdriver.Chrome()
     elif browser_param == "firefox":
         driver = webdriver.Firefox()
     return driver

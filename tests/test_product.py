@@ -4,7 +4,7 @@ import time
 import allure
 import mysql.connector
 
-connection = mysql.connector.connect(user='ocuser', password='PASSWORD', host='192.168.0.104', port='3306')
+connection = mysql.connector.connect(user='ocuser', password='PASSWORD', host='192.168.0.102', port='3306')
 cursor = connection.cursor()
 cursor.execute("USE opencart")
 
