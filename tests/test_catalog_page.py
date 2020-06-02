@@ -1,7 +1,9 @@
+""" bbb"""
 from page_objects import CatalogPage
 
 
 def test_catalog_page(remote):
+    """ aa"""
     CatalogPage(remote).go_site()
     CatalogPage(remote).button()
     CatalogPage(remote).sort()

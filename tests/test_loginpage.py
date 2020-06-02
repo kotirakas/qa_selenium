@@ -1,7 +1,9 @@
+""" bbb"""
 from page_objects import LoginPage
 
 
 def test_adminlogin_page(remote):
+    """aaa"""
     LoginPage(remote).go_site()
     LoginPage(remote).login_button()
     LoginPage(remote).username()
